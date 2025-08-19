@@ -4,8 +4,9 @@ import React from 'react'
 
 import { motion } from 'framer-motion'
 import About from './Component/BookStore/About'
-import Category from './Component/BookStore/Category'
+import Category from './Component/BookStore/Categories'
 import Hero from './Component/Hero/Hero'
+import Categories from './Component/BookStore/Categories'
 
 function Page() {
   return (
@@ -16,7 +17,7 @@ function Page() {
       <Hero/>
       {/* Categories Section */}
 
-      <Category/>
+      <Categories/>
 
 
       {/* About Section */}
