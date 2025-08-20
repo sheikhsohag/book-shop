@@ -7,7 +7,9 @@ function Categories() {
   return (
     <div>
       <section id="categories" className="w-full py-20 bg-gray-100 text-center">
-        <h2 className="text-3xl font-bold mb-12">Categories</h2>
+        <div className='w-[90%] mx-auto text-start'>
+          <h2 className="text-3xl font-bold mb-12 ps-6">Categories</h2>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8 w-[90%] mx-auto px-6">
           {categories.map((cat) => (
             <motion.div

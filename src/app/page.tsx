@@ -7,6 +7,7 @@ import About from './Component/BookStore/About'
 import Category from './Component/BookStore/Categories'
 import Hero from './Component/Hero/Hero'
 import Categories from './Component/BookStore/Categories'
+import CategoryWithProducts from './Component/BookStore/CategoryWithProducts'
 
 function Page() {
   return (
@@ -18,6 +19,10 @@ function Page() {
       {/* Categories Section */}
 
       <Categories/>
+
+      {/* category with products */}
+
+      <CategoryWithProducts/>
 
 
       {/* About Section */}

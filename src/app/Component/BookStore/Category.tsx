@@ -46,7 +46,7 @@ function Category({ cat }: CategoryProps) {
         />
       </motion.div>
 
-      <div className="w-full h-[30%] flex justify-center items-center p-4"> /* Fixed ratio */
+      <div className="w-full h-[30%] flex justify-center items-center p-4">
         <h3 className="text-xl font-semibold">{cat.name}</h3>
       </div>
     </div>
