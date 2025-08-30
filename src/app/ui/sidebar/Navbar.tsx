@@ -5,16 +5,18 @@ import SideBarCart from './SideBarCart';
 
 function Navbar() {
   return (
-    <div>
-       {
+    <div className='w-full text-center'>
+       <div className=''>
+          {
          SideBarConstant.map((item, index)=>{
            return (
              <div key={index}>
-               <SideBarCart/>
+               <SideBarCart item={item}/>
              </div>
            );
          })
        }
+       </div>
     </div>
   )
 }
