@@ -3,11 +3,11 @@ import Image from 'next/image'
 import React from 'react'
 
 import { motion } from 'framer-motion'
-import About from './Component/BookStore/About'
-import Category from './Component/BookStore/Categories'
+import About from './Component/BookShop/About'
+import Category from './Component/BookShop/Categories'
 import Hero from './Component/Hero/Hero'
-import Categories from './Component/BookStore/Categories'
-import CategoryWithProducts from './Component/BookStore/CategoryWithProducts'
+import Categories from './Component/BookShop/Categories'
+import CategoryWithProducts from './Component/BookShop/CategoryWithProducts'
 
 function Page() {
   return (

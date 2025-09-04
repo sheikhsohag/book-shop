@@ -22,7 +22,7 @@ export const SideBarConstant = [
     },
     {
         title: "Cart",
-        href: "/cart",
+        href: "/shop/cart",
         icon: <FontAwesomeIcon icon={faCartShopping} />
     },
     {

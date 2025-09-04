@@ -1,6 +1,6 @@
 import React from 'react'
 import { books } from '../Constant/TotalBook'
-import Book from '../Component/BookStore/Book'
+import Book from '../Component/BookShop/Book'
 
 function page() {
   console.log(books);
