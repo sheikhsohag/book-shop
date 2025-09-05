@@ -1,13 +1,18 @@
 import BookDetails from '@/app/Component/BookDetails/BookDetails';
-import React from 'react'
+import React from 'react';
 
-function Page({ params }: { params: { id: string } }) {
-  const { id } = params;
+interface PageProps {
+  params: Promise<{ id: string }>;
+}
+
+async function Page({ params }: PageProps) {
+  const { id } = await params;
+
   return (
     <div>
       <BookDetails id={Number(id)} />
     </div>
-  )
+  );
 }
 
 export default Page;
