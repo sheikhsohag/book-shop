@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from 'react-redux'
 import { addToCart } from '@/redux/CartSlice'
+import Link from 'next/link'
 
 interface BookProps {
     book: {
@@ -49,9 +50,9 @@ function Book({ book }: BookProps) {
                         <button className='p-2 rounded' onClick={()=>onhadleCart(book.id)}>
                             <FontAwesomeIcon icon={faCartShopping} className='text-2xl hover:scale-120 duration-300 cursor-pointer' />
                         </button>
-                        <button className='bg-black h-8 sm:h-9 md:h-10 lg:h-8 xl:h-9 2xl:h-10 3xl:h-8 4xl:h-9 text-white py-1 px-2 rounded text-xs hover:bg-gray-600 cursor-pointer hover:scale-110 duration-300'>
-                            Buy Now
-                        </button>
+                        <Link href={`/shop/book/${book.id}`} className='flex items-center bg-black h-8 sm:h-9 md:h-10 lg:h-8 xl:h-9 2xl:h-10 3xl:h-8 4xl:h-9 text-white py-1 px-2 rounded text-xs hover:bg-gray-600 cursor-pointer hover:scale-110 duration-300'>
+                            Details
+                        </Link>
                     </div>
                 </div>
             </motion.div>

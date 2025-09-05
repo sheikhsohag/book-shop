@@ -12,6 +12,7 @@ import {
 
 import { ShoppingCart, Trash2, Plus, Minus, ArrowLeft, CreditCard } from "lucide-react";
 import { books } from "@/app/Constant/TotalBook";
+import Link from "next/link";
 
 interface CartItem {
   id: number;
@@ -20,7 +21,7 @@ interface CartItem {
 
 interface Book {
   id: number;
-  title: string;
+  name: string;
   image: string;
   price: number;
 }
@@ -54,10 +55,10 @@ function Page() {
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center mb-8">
-          <button className="flex items-center text-blue-600 hover:text-blue-800 mr-4">
+          <Link href={"/shop"} className="flex items-center text-blue-600 hover:text-blue-800 mr-4">
             <ArrowLeft size={20} className="mr-1" />
             Continue Shopping
-          </button>
+          </Link>
           <h1 className="text-3xl font-bold text-gray-900 flex items-center">
             <ShoppingCart className="mr-3" />
             Your Shopping Cart
@@ -100,12 +101,12 @@ function Page() {
                   <div key={item.id} className="p-6 flex flex-col sm:flex-row items-start sm:items-center">
                     <img
                       src={book.image}
-                      alt={book.title}
+                      alt={book.name}
                       className="w-20 h-24 object-contain rounded-lg mb-4 sm:mb-0 sm:mr-6"
                     />
                     
                     <div className="flex-1 min-w-0 mr-4">
-                      <h3 className="text-lg font-semibold text-gray-900 truncate">{book.title}</h3>
+                      <h3 className="text-lg font-semibold text-gray-900 truncate">{book.name}</h3>
                       <p className="text-lg font-bold text-blue-700 mt-1">${book.price.toFixed(2)}</p>
                     </div>
                     
@@ -130,7 +131,7 @@ function Page() {
                       <button
                         onClick={() => dispatch(removeFromCart(item.id))}
                         className="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg"
-                        title="Remove item"
+                        name="Remove item"
                       >
                         <Trash2 size={18} />
                       </button>
