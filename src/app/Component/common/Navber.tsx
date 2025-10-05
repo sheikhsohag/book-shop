@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link'
 import React, { useState } from 'react'
 import { FaBars, FaTimes } from 'react-icons/fa'
 
@@ -14,7 +15,7 @@ function Navbar() {
             <h1 className="text-2xl font-bold">MySite</h1>
             <ul className="flex gap-6 text-lg">
               <li className="hover:text-gray-300 cursor-pointer">Home</li>
-              <li className="hover:text-gray-300 cursor-pointer">Categories</li>
+              <Link href={'/shop'} className="hover:text-gray-300 cursor-pointer">Shop</Link>
               <li className="hover:text-gray-300 cursor-pointer">About</li>
               <li className="hover:text-gray-300 cursor-pointer">Contact</li>
             </ul>
@@ -36,7 +37,7 @@ function Navbar() {
             <div className="sm:hidden mt-4 pb-4">
               <ul className="flex flex-col gap-4 text-lg">
                 <li className="hover:text-gray-300 cursor-pointer py-2">Home</li>
-                <li className="hover:text-gray-300 cursor-pointer py-2">Categories</li>
+                <Link href={'/shop'} className="hover:text-gray-300 cursor-pointer py-2">Shop</Link>
                 <li className="hover:text-gray-300 cursor-pointer py-2">About</li>
                 <li className="hover:text-gray-300 cursor-pointer py-2">Contact</li>
               </ul>
