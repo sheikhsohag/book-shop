@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 interface Category {
   id: number;
@@ -46,9 +47,11 @@ function Category({ cat }: CategoryProps) {
         />
       </motion.div>
 
-      <div className="w-full h-[30%] flex justify-center items-center p-4">
-        <h3 className="text-xl font-semibold">{cat.name}</h3>
-      </div>
+      <Link href={`/shop/${cat.name.toLowerCase().replace(/\s+/g, '-')}/${cat.id}`} className="w-full flex justify-center items-center pt-4">
+        <div className="w-full h-[30%] flex justify-center items-center p-4">
+          <h3 className="text-xl font-semibold">{cat.name}</h3>
+        </div>
+      </Link>
     </div>
   );
 }
