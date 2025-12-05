@@ -18,6 +18,7 @@ function Navbar() {
               <Link href={'/shop'} className="hover:text-gray-300 cursor-pointer">Shop</Link>
               <li className="hover:text-gray-300 cursor-pointer">About</li>
               <li className="hover:text-gray-300 cursor-pointer">Contact</li>
+              <Link href={'/user'} className="hover:text-gray-300 cursor-pointer">User</Link>
             </ul>
           </div>
 
@@ -40,6 +41,7 @@ function Navbar() {
                 <Link href={'/shop'} className="hover:text-gray-300 cursor-pointer py-2">Shop</Link>
                 <li className="hover:text-gray-300 cursor-pointer py-2">About</li>
                 <li className="hover:text-gray-300 cursor-pointer py-2">Contact</li>
+                <Link href={'/user'} className="hover:text-gray-300 cursor-pointer py-2">User</Link>
               </ul>
             </div>
           )}
