@@ -1,8 +1,10 @@
-import { i } from "framer-motion/client";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse, faBook, faInfoCircle,faUserGear, faUsers, faList, faCheckSquare, faTruck, faGear,faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import { title } from "process";
+// Remove these unused imports
+// import { i } from "framer-motion/client"; // DELETE THIS LINE
+// import { title } from "process"; // DELETE THIS LINE
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHouse, faBook, faInfoCircle, faUserGear, faUsers, faCheckSquare, faTruck, faGear, faCartShopping } from "@fortawesome/free-solid-svg-icons";
+// Removed faList since it's unused
 
 export const SideBarConstant = [
     {
@@ -34,7 +36,8 @@ export const SideBarConstant = [
         title: "Communities",
         href: "/communities",
         icon: <FontAwesomeIcon icon={faUsers} />,
-    },{
+    },
+    {
         title: "Setting",
         href: "/setting",
         icon: <FontAwesomeIcon icon={faGear} />,

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "@/store";
+import { RootState } from "@/redux/store"; // Updated import
 import {
   clearCart,
   decreaseQuantity,
@@ -13,17 +13,11 @@ import {
 import { ShoppingCart, Trash2, Plus, Minus, ArrowLeft, CreditCard } from "lucide-react";
 import { books } from "@/app/Constant/TotalBook";
 import Link from "next/link";
+import Image from "next/image";
 
 interface CartItem {
   id: number;
   quantity: number;
-}
-
-interface Book {
-  id: number;
-  name: string;
-  image: string;
-  price: number;
 }
 
 function Page() {
@@ -74,10 +68,13 @@ function Page() {
           <div className="bg-white rounded-lg shadow-md p-8 text-center">
             <ShoppingCart size={64} className="mx-auto text-gray-400 mb-4" />
             <h2 className="text-2xl font-semibold text-gray-700 mb-2">Your cart is empty</h2>
-            <p className="text-gray-500 mb-6">Looks like you haven't added any books to your cart yet.</p>
-            <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200">
+            <p className="text-gray-500 mb-6">Looks like you haven&apos;t added any books to your cart yet.</p>
+            <Link 
+              href="/shop"
+              className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200"
+            >
               Browse Books
-            </button>
+            </Link>
           </div>
         ) : (
           <div className="bg-white rounded-lg shadow-md overflow-hidden">
@@ -99,11 +96,15 @@ function Page() {
 
                 return (
                   <div key={item.id} className="p-6 flex flex-col sm:flex-row items-start sm:items-center">
-                    <img
-                      src={book.image}
-                      alt={book.name}
-                      className="w-20 h-24 object-contain rounded-lg mb-4 sm:mb-0 sm:mr-6"
-                    />
+                    <div className="w-20 h-24 relative mb-4 sm:mb-0 sm:mr-6">
+                      <Image
+                        src={book.image}
+                        alt={book.name}
+                        fill
+                        sizes="80px"
+                        className="object-contain rounded-lg"
+                      />
+                    </div>
                     
                     <div className="flex-1 min-w-0 mr-4">
                       <h3 className="text-lg font-semibold text-gray-900 truncate">{book.name}</h3>
@@ -131,7 +132,7 @@ function Page() {
                       <button
                         onClick={() => dispatch(removeFromCart(item.id))}
                         className="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg"
-                        name="Remove item"
+                        aria-label="Remove item"
                       >
                         <Trash2 size={18} />
                       </button>

@@ -6,6 +6,7 @@ import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from 'react-redux'
 import { addToCart } from '@/redux/CartSlice'
 import Link from 'next/link'
+import Image from 'next/image'
 
 interface BookProps {
     book: {
@@ -35,8 +36,14 @@ function Book({ book }: BookProps) {
                 transition={{ duration: 0.2}}
                 whileHover={{ scale: 1.02 }}
             >
-                <div className='w-full h-48 mb-3'>
-                    <img className='w-full h-full object-cover rounded' src={book.image} alt={book.name} />
+                <div className='w-full h-48 mb-3 relative'>
+                    <Image 
+                        className='w-full h-full object-cover rounded' 
+                        src={book.image} 
+                        alt={book.name}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
                 </div>
 
                 <div className='flex w-full' >

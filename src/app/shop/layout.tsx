@@ -1,9 +1,13 @@
 'use client';
-import React, { useState } from 'react'
+import React, { useState, ReactNode } from 'react'
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa'
 import SideBar from '../ui/sidebar/SideBar'
 
-function Layout({ children }: any) {
+interface LayoutProps {
+  children: ReactNode
+}
+
+function Layout({ children }: LayoutProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -36,6 +40,7 @@ function Layout({ children }: any) {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="md:hidden fixed top-1/2 left-0 z-50 -translate-y-1/2 bg-gray-400 text-white px-1 py-2 rounded-r-lg shadow-lg"
+        aria-label={isOpen ? "Close sidebar" : "Open sidebar"}
       >
         {isOpen ? <FaChevronLeft /> : <FaChevronRight />}
       </button>

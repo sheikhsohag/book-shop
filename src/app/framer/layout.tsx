@@ -1,12 +1,13 @@
-import { div } from 'framer-motion/client'
-import React from 'react'
+import { ReactNode } from 'react'
 
-function layout({ children }: any) {
-    return (
-
-        <div>{children}</div>
-
-    )
+interface LayoutProps {
+  children: ReactNode
 }
 
-export default layout
+function Layout({ children }: LayoutProps) {
+  return (
+    <div>{children}</div>
+  )
+}
+
+export default Layout

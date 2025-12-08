@@ -5,6 +5,21 @@ import React, { useState } from "react";
 import { FaStar, FaStarHalfAlt, FaRegStar, FaShoppingCart, FaHeart, FaShare, FaChevronLeft, FaChevronRight, FaArrowLeft } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import Link from "next/link";
+import Image from "next/image";
+
+// Define the complete book interface
+interface Book {
+  id: number;
+  name: string;
+  image: string;
+  author: string;
+  price: number;
+  category: string;
+  rating?: number;
+  reviews?: number;
+  stock?: number;
+  description?: string;
+}
 
 interface BookDetailsProps {
   id: number;
@@ -13,11 +28,10 @@ interface BookDetailsProps {
 function BookDetails({ id }: BookDetailsProps) {
   const dispatch = useDispatch();
   const bookId = Number(id);
-  const book = books.find((b) => b.id === bookId);
+  const book = books.find((b) => b.id === bookId) as Book | undefined;
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState("description");
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [addedToCart, setAddedToCart] = useState(false);
 
   if (!book) {
     return (
@@ -25,7 +39,7 @@ function BookDetails({ id }: BookDetailsProps) {
         <div className="text-center p-8 bg-white rounded-lg shadow-lg">
           <div className="text-6xl text-red-500 mb-4">❌</div>
           <h2 className="text-2xl font-bold text-gray-800 mb-2">Book Not Found</h2>
-          <p className="text-gray-600">Sorry, the book you're looking for doesn't exist.</p>
+          <p className="text-gray-600">Sorry, the book you&apos;re looking for doesn&apos;t exist.</p>
           <button 
             className="mt-6 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
             onClick={() => window.history.back()}
@@ -67,12 +81,9 @@ function BookDetails({ id }: BookDetailsProps) {
   // Handle add to cart
   const handleAddToCart = () => {
     dispatch(addToCartByNumber({ id: book.id, quantity }));
-    setAddedToCart(true);
     
-    // Reset the added to cart message after 3 seconds
-    setTimeout(() => {
-      setAddedToCart(false);
-    }, 3000);
+    // Show success message or notification
+    alert(`Added ${quantity} ${quantity > 1 ? 'copies' : 'copy'} of "${book.name}" to cart!`);
   };
 
   // Handle wishlist
@@ -97,7 +108,7 @@ function BookDetails({ id }: BookDetailsProps) {
     }
   };
 
-  // Sample images for gallery (in a real app, this would come from book data)
+  // Sample images for gallery
   const sampleImages = [
     book.image,
     "https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
@@ -116,6 +127,12 @@ function BookDetails({ id }: BookDetailsProps) {
     );
   };
 
+  // Get book properties with fallbacks
+  const bookRating = book.rating || 4.5;
+  const bookReviews = book.reviews || 124;
+  const bookStock = book.stock || 10;
+  const bookDescription = book.description || "No description available.";
+
   return (
     <div className="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-lg">
       {/* Continue Shopping Button */}
@@ -133,9 +150,11 @@ function BookDetails({ id }: BookDetailsProps) {
         {/* Book Image Gallery */}
         <div className="md:w-2/5">
           <div className="relative">
-            <img
+            <Image
               src={sampleImages[currentImageIndex]}
               alt={book.name}
+              width={500}
+              height={400}
               className="w-full h-96 object-contain rounded-lg border"
             />
             {sampleImages.length > 1 && (
@@ -156,13 +175,19 @@ function BookDetails({ id }: BookDetailsProps) {
             )}
             <div className="flex mt-4 gap-2">
               {sampleImages.map((img, index) => (
-                <img
+                <button
                   key={index}
-                  src={img}
-                  alt={`${book.name} view ${index + 1}`}
-                  className={`w-16 h-16 object-cover cursor-pointer rounded border-2 ${currentImageIndex === index ? 'border-blue-500' : 'border-gray-200'}`}
                   onClick={() => setCurrentImageIndex(index)}
-                />
+                  className={`rounded border-2 ${currentImageIndex === index ? 'border-blue-500' : 'border-gray-200'}`}
+                >
+                  <Image
+                    src={img}
+                    alt={`${book.name} view ${index + 1}`}
+                    width={64}
+                    height={64}
+                    className="w-16 h-16 object-cover rounded"
+                  />
+                </button>
               ))}
             </div>
           </div>
@@ -175,20 +200,20 @@ function BookDetails({ id }: BookDetailsProps) {
           
           <div className="flex items-center mt-4">
             <div className="flex">
-              {renderRating(book.rating || 4.5)}
+              {renderRating(bookRating)}
             </div>
-            <span className="ml-2 text-gray-600">({book.reviews || 124} reviews)</span>
+            <span className="ml-2 text-gray-600">({bookReviews} reviews)</span>
           </div>
 
           <div className="mt-6">
             <p className="text-3xl font-bold text-gray-900">${book.price.toFixed(2)}</p>
-            <p className={`mt-1 ${book.stock > 0 ? 'text-green-600' : 'text-red-600'}`}>
-              {book.stock > 0 ? `In Stock (${book.stock} available)` : 'Out of Stock'}
+            <p className={`mt-1 ${bookStock > 0 ? 'text-green-600' : 'text-red-600'}`}>
+              {bookStock > 0 ? `In Stock (${bookStock} available)` : 'Out of Stock'}
             </p>
           </div>
 
           <div className="mt-6">
-            <p className="text-gray-700">{book.description || "No description available."}</p>
+            <p className="text-gray-700">{bookDescription}</p>
           </div>
 
           <div className="mt-8 flex items-center">
@@ -210,18 +235,13 @@ function BookDetails({ id }: BookDetailsProps) {
             </div>
           </div>
 
-          {/* Added to Cart Success Message */}
-          {addedToCart && (
-            <div className="mt-4 p-3 bg-green-100 text-green-700 rounded-lg">
-              ✅ Added {quantity} {quantity > 1 ? 'copies' : 'copy'} of "{book.name}" to your cart!
-            </div>
-          )}
+          <p className="mt-4 text-gray-700">Free shipping on orders over $50</p>
 
           <div className="mt-8 flex flex-wrap gap-4">
             <button 
               className="flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors flex-1 min-w-[200px]"
               onClick={handleAddToCart}
-              disabled={book.stock === 0}
+              disabled={bookStock === 0}
             >
               <FaShoppingCart />
               Add to Cart
@@ -285,7 +305,7 @@ function BookDetails({ id }: BookDetailsProps) {
             <div className="mt-4">
               {activeTab === 'description' && (
                 <div>
-                  <p className="text-gray-700">{book.description || "No description available."}</p>
+                  <p className="text-gray-700">{bookDescription}</p>
                   <p className="mt-4 text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
                 </div>
               )}
@@ -324,11 +344,11 @@ function BookDetails({ id }: BookDetailsProps) {
                   <div className="border-b pb-4 mb-4">
                     <div className="flex items-center">
                       <div className="flex mr-2">
-                        {renderRating(4.5)}
+                        {renderRating(bookRating)}
                       </div>
-                      <span className="text-gray-600">4.5 out of 5</span>
+                      <span className="text-gray-600">{bookRating.toFixed(1)} out of 5</span>
                     </div>
-                    <p className="text-gray-600 mt-2">Based on 124 reviews</p>
+                    <p className="text-gray-600 mt-2">Based on {bookReviews} reviews</p>
                   </div>
                   
                   <div className="space-y-4">
@@ -340,7 +360,7 @@ function BookDetails({ id }: BookDetailsProps) {
                         </div>
                       </div>
                       <p className="text-gray-600 text-sm">Posted on January 15, 2023</p>
-                      <p className="mt-2">This book is amazing! I couldn't put it down. The characters are well-developed and the plot is engaging.</p>
+                      <p className="mt-2">This book is amazing! I couldn&apos;t put it down. The characters are well-developed and the plot is engaging.</p>
                     </div>
                     
                     <div>
@@ -369,11 +389,12 @@ function BookDetails({ id }: BookDetailsProps) {
             <Link 
               key={relatedBook.id} 
               href={`/shop/book/${relatedBook.id}`}
-              className="border rounded-lg p-4 hover:shadow-lg transition-shadow"
-            >
-              <img 
+              className="border rounded-lg p-4 hover:shadow-lg transition-shadow">
+              <Image 
                 src={relatedBook.image} 
                 alt={relatedBook.name}
+                width={200}
+                height={160}
                 className="w-full h-40 object-contain mb-3"
               />
               <h3 className="font-semibold text-gray-900 line-clamp-1">{relatedBook.name}</h3>

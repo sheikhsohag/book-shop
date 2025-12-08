@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import React from 'react';
 import CartShow from './Component/CartShow';
-import { RootState } from '../shop'; // ✅ fix this path
+import { RootState } from '@/redux/store'; // Fixed import - adjust based on your actual store location
 import { useSelector } from 'react-redux';
 import { usePathname } from "next/navigation";
+
 interface SideBarCartProps {
   item: {
     title: string;
@@ -15,9 +16,8 @@ interface SideBarCartProps {
 function SideBarCart({ item }: SideBarCartProps) {
   // ✅ get cart array from redux
   const cart = useSelector((state: RootState) => state.cart.cart);
-   const pathname = usePathname();
+  const pathname = usePathname();
   const isActive = item.href ? pathname === item.href : false;
-
 
   return (
     <div className={`py-3 flex items-center hover:bg-gray-300 transition rounded w-full text-center pl-6 sm:pl-8 md:pl-6 ${isActive ? 'bg-gray-300' : ''}`}>
